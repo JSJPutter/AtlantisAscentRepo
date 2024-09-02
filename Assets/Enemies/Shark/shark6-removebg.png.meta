@@ -1,0 +1,692 @@
+fileFormatVersion: 2
+guid: d697f4faa1ce648129d81efa6e1982e0
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7271387929674359885
+    second: shark6-removebg_0
+  - first:
+      213: 4879072645477695337
+    second: shark6-removebg_1
+  - first:
+      213: -3732640820869662538
+    second: shark6-removebg_2
+  - first:
+      213: 2274435529102853684
+    second: shark6-removebg_3
+  - first:
+      213: 6093463660604966611
+    second: shark6-removebg_4
+  - first:
+      213: -5679953482190590046
+    second: shark6-removebg_5
+  - first:
+      213: -3805052425228174459
+    second: shark6-removebg_6
+  - first:
+      213: -6651620850596897267
+    second: shark6-removebg_7
+  - first:
+      213: 5188828764986581443
+    second: shark6-removebg_8
+  - first:
+      213: -7891651332372540410
+    second: shark6-removebg_9
+  - first:
+      213: -5589006025561600290
+    second: shark6-removebg_10
+  - first:
+      213: -2039907498156896816
+    second: shark6-removebg_11
+  - first:
+      213: -1056360847182528781
+    second: shark6-removebg_12
+  - first:
+      213: -5109649837295266549
+    second: shark6-removebg_13
+  - first:
+      213: -94298806725812090
+    second: shark6-removebg_14
+  - first:
+      213: 8049765238457483209
+    second: shark6-removebg_15
+  - first:
+      213: 5711332747006499079
+    second: shark6-removebg_16
+  - first:
+      213: -2868266173701961986
+    second: shark6-removebg_17
+  - first:
+      213: 7193598767568633231
+    second: shark6-removebg_18
+  - first:
+      213: 4823742569939724924
+    second: shark6-removebg_19
+  - first:
+      213: -3288089347838990624
+    second: shark6-removebg_20
+  - first:
+      213: -7071231426233709622
+    second: shark6-removebg_21
+  - first:
+      213: 2924292492429468079
+    second: shark6-removebg_22
+  - first:
+      213: -6947622368135110164
+    second: shark6-removebg_23
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: shark6-removebg_0
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 488
+        width: 149
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d44ad4cebc829e460800000000000000
+      internalID: 7271387929674359885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shark6-removebg_1
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 488
+        width: 136
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96ff50b78b2f5b340800000000000000
+      internalID: 4879072645477695337
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shark6-removebg_2
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 498
+        width: 40
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b8f0f523fef23cc0800000000000000
+      internalID: -3732640820869662538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shark6-removebg_3
+      rect:
+        serializedVersion: 2
+        x: 358
+        y: 489
+        width: 72
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43604b0301b609f10800000000000000
+      internalID: 2274435529102853684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shark6-removebg_4
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 419
+        width: 146
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d64c1e2ae4509450800000000000000
+      internalID: 6093463660604966611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shark6-removebg_5
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 422
+        width: 126
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2af6941d660cc21b0800000000000000
+      internalID: -5679953482190590046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shark6-removebg_6
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 425
+        width: 134
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58b3982bafcb13bc0800000000000000
+      internalID: -3805052425228174459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shark6-removebg_7
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 337
+        width: 149
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0e17930412b0b3a0800000000000000
+      internalID: -6651620850596897267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shark6-removebg_8
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 344
+        width: 117
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c1aa59254c620840800000000000000
+      internalID: 5188828764986581443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shark6-removebg_9
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 341
+        width: 140
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60452bacce83b7290800000000000000
+      internalID: -7891651332372540410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shark6-removebg_10
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 209
+        width: 146
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ede02eea1acdf62b0800000000000000
+      internalID: -5589006025561600290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shark6-removebg_11
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 209
+        width: 136
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ddc3b530fac0b3e0800000000000000
+      internalID: -2039907498156896816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shark6-removebg_12
+      rect:
+        serializedVersion: 2
+        x: 301
+        y: 218
+        width: 39
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3fefd05086d0751f0800000000000000
+      internalID: -1056360847182528781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shark6-removebg_13
+      rect:
+        serializedVersion: 2
+        x: 353
+        y: 214
+        width: 80
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0512698b80e619b0800000000000000
+      internalID: -5109649837295266549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shark6-removebg_14
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 115
+        width: 150
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6806d522cbbf0bef0800000000000000
+      internalID: -94298806725812090
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shark6-removebg_15
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 116
+        width: 113
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9cfbb8bb5d286bf60800000000000000
+      internalID: 8049765238457483209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shark6-removebg_16
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 119
+        width: 46
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 709d06b9fdab24f40800000000000000
+      internalID: 5711332747006499079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shark6-removebg_17
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 106
+        width: 78
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef6c93b9c1fd138d0800000000000000
+      internalID: -2868266173701961986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shark6-removebg_18
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 96
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f8dbd9d37fbc4d360800000000000000
+      internalID: 7193598767568633231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shark6-removebg_19
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 27
+        width: 150
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7aef216f4061f240800000000000000
+      internalID: 4823742569939724924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shark6-removebg_20
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 27
+        width: 130
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e6af40c82c5e52d0800000000000000
+      internalID: -3288089347838990624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shark6-removebg_21
+      rect:
+        serializedVersion: 2
+        x: 331
+        y: 31
+        width: 27
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: acbc2ca9b70fddd90800000000000000
+      internalID: -7071231426233709622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shark6-removebg_22
+      rect:
+        serializedVersion: 2
+        x: 334
+        y: 65
+        width: 17
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa1a99e378c259820800000000000000
+      internalID: 2924292492429468079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shark6-removebg_23
+      rect:
+        serializedVersion: 2
+        x: 380
+        y: 29
+        width: 50
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce1afb92446159f90800000000000000
+      internalID: -6947622368135110164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
