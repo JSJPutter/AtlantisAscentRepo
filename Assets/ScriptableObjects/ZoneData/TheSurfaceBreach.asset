@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: TheSurfaceBreach
   m_EditorClassIdentifier: 
   zoneName: The Surface Breach
-  startHeight: 5000
-  endHeight: 6000
+  startHeight: 500
+  endHeight: 600
   ambientLight: {r: 0, g: 0, b: 0, a: 0}
   obstaclePrefabs: []
   enemyPrefabs: []
