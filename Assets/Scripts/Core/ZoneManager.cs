@@ -1,150 +1,161 @@
-using UnityEngine;
 using System.Collections.Generic;
+using Artifacts;
+using ScriptableObjects.ArtifactData;
+using UnityEngine;
 
-public class ZoneManager : MonoBehaviour
-{
-    public static ZoneManager Instance { get; private set; }
+namespace Core {
+    public class ZoneManager : MonoBehaviour {
+        public static ZoneManager Instance { get; private set; }
 
-    public List<ZoneData> zones;
-    public float spawnAreaWidth = 10f;
-    public float despawnHeight = -10f;
-    public float spawnAheadDistance = 20f;
+        public List<ZoneData> zones;
+        public float spawnAreaWidth = 10f;
+        public float despawnHeight = -10f;
+        public float spawnAheadDistance = 20f;
 
-    [SerializeField] private Camera mainCamera;
-    [SerializeField] private SpriteRenderer backgroundRenderer;
+        [SerializeField] private Camera mainCamera;
+        [SerializeField] private SpriteRenderer backgroundRenderer;
 
-    private ZoneData currentZone;
-    private float lastSpawnHeight;
-    private const float spawnInterval = 5f;
+        private ZoneData currentZone;
+        private float lastSpawnHeight;
+        private const float spawnInterval = 5f;
 
-    private Transform player;
+        private Transform player;
 
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
+        private void Awake() {
+            if (Instance == null) {
+                Instance = this;
+            } else {
+                Destroy(gameObject);
+            }
+
+            if (mainCamera == null)
+                mainCamera = Camera.main;
+
+            if (backgroundRenderer == null)
+                backgroundRenderer = GetComponentInChildren<SpriteRenderer>();
         }
-        else
-        {
-            Destroy(gameObject);
+
+        private void Start() {
+            player = GameObject.FindGameObjectWithTag("Player").transform;
+            currentZone = zones[0];
+            lastSpawnHeight = currentZone.startHeight;
+            UpdateBackground();
         }
 
-        if (mainCamera == null)
-            mainCamera = Camera.main;
+        private void Update() {
+            UpdatePlayerHeight(player.position.y);
+        }
 
-        if (backgroundRenderer == null)
-            backgroundRenderer = GetComponentInChildren<SpriteRenderer>();
-    }
+        public void UpdatePlayerHeight(float height) {
+            CheckZoneTransition(height);
+            ManageZoneSpawning(height);
+        }
 
-    private void Start()
-    {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-        currentZone = zones[0];
-        lastSpawnHeight = currentZone.startHeight;
-        UpdateBackground();
-    }
+        private void CheckZoneTransition(float height) {
+            foreach (ZoneData zone in zones) {
+                if (height >= zone.startHeight && height < zone.endHeight) {
+                    if (zone != currentZone) {
+                        TransitionToNewZone(zone);
+                    }
 
-    private void Update()
-    {
-        UpdatePlayerHeight(player.position.y);
-    }
-
-    public void UpdatePlayerHeight(float height)
-    {
-        CheckZoneTransition(height);
-        ManageZoneSpawning(height);
-    }
-
-    private void CheckZoneTransition(float height)
-    {
-        foreach (ZoneData zone in zones)
-        {
-            if (height >= zone.startHeight && height < zone.endHeight)
-            {
-                if (zone != currentZone)
-                {
-                    TransitionToNewZone(zone);
+                    break;
                 }
-                break;
             }
         }
-    }
 
-    private void TransitionToNewZone(ZoneData newZone)
-    {
-        currentZone = newZone;
-        RenderSettings.ambientLight = currentZone.ambientLight;
-        UpdateBackground();
-        // Trigger any zone transition events or effects
-        GameManager.Instance.TriggerEvent("ZoneChanged", currentZone);
-    }
+        private void TransitionToNewZone(ZoneData newZone) {
+            currentZone = newZone;
+            RenderSettings.ambientLight = currentZone.ambientLight;
+            
+            UpdateBackground();
+            
+            // Trigger any zone transition events or effects
+            GameManager.Instance.TriggerEvent("ZoneChanged", currentZone);
+        }
 
-    private void UpdateBackground()
-    {
-        if (backgroundRenderer != null && currentZone.backgroundSprite != null)
-        {
-            backgroundRenderer.sprite = currentZone.backgroundSprite;
-            // backgroundRenderer.color = currentZone.backgroundColor;
+        private void UpdateBackground() {
+            if (backgroundRenderer != null && currentZone.backgroundSprite != null) {
+                backgroundRenderer.sprite = currentZone.backgroundSprite;
+                // backgroundRenderer.color = currentZone.backgroundColor;
 
-            // if (currentZone.tileBackgroundVertically)
-            // {
+                // if (currentZone.tileBackgroundVertically)
+                // {
                 backgroundRenderer.drawMode = SpriteDrawMode.Tiled;
                 backgroundRenderer.size = new Vector2(spawnAreaWidth, currentZone.endHeight - currentZone.startHeight);
-            // }
-            // else
-            // {
+                // }
+                // else
+                // {
                 // backgroundRenderer.drawMode = SpriteDrawMode.Simple;
-            // }
+                // }
 
-            // Position the background
-            backgroundRenderer.transform.position = new Vector3(0, (currentZone.startHeight + currentZone.endHeight) / 2, 10);
+                // Position the background
+                backgroundRenderer.transform.position =
+                    new Vector3(0, (currentZone.startHeight + currentZone.endHeight) / 2, 10);
+            }
         }
-    }
 
-    private void ManageZoneSpawning(float height)
-    {
-        if (height > lastSpawnHeight + spawnInterval)
-        {
-            SpawnZoneElements();
-            lastSpawnHeight = height;
+        private void ManageZoneSpawning(float height) {
+            if (height > lastSpawnHeight + spawnInterval) {
+                SpawnZoneElements();
+                lastSpawnHeight = height;
+            }
         }
-    }
 
-    private void SpawnZoneElements()
-    {
-        SpawnObstacles();
-        SpawnEnemies();
-        SpawnArtifacts();
-    }
-
-    private void SpawnObstacles()
-    {
-        if (currentZone.obstaclePrefabs.Count > 0)
-        {
-            GameObject obstaclePrefab = currentZone.obstaclePrefabs[Random.Range(0, currentZone.obstaclePrefabs.Count)];
-            Vector3 spawnPosition = new Vector3(Random.Range(-spawnAreaWidth/2, spawnAreaWidth/2), lastSpawnHeight + 10f, 0);
-            Instantiate(obstaclePrefab, spawnPosition, Quaternion.identity);
+        private void SpawnZoneElements() {
+            SpawnObstacles();
+            SpawnEnemies();
+            SpawnArtifacts();
         }
-    }
 
-    private void SpawnEnemies()
-    {
-        if (currentZone.enemyPrefabs.Count > 0)
-        {
-            GameObject enemyPrefab = currentZone.enemyPrefabs[Random.Range(0, currentZone.enemyPrefabs.Count)];
-            Vector3 spawnPosition = new Vector3(Random.Range(-spawnAreaWidth/2, spawnAreaWidth/2), lastSpawnHeight + 10f, 0);
-            Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+        private void SpawnObstacles() {
+            if (currentZone.obstaclePrefabs.Count > 0) {
+                GameObject obstaclePrefab =
+                    currentZone.obstaclePrefabs[Random.Range(0, currentZone.obstaclePrefabs.Count)];
+                Vector3 spawnPosition = new Vector3(Random.Range(-spawnAreaWidth / 2, spawnAreaWidth / 2),
+                    lastSpawnHeight + 10f, 0);
+                Instantiate(obstaclePrefab, spawnPosition, Quaternion.identity);
+            }
         }
-    }
 
-    private void SpawnArtifacts()
-    {
-        if (currentZone.artifactPrefabs.Count > 0 && Random.value < 0.3f) // 30% chance to spawn an artifact
+        private void SpawnEnemies() {
+            if (currentZone.enemyPrefabs.Count > 0) {
+                GameObject enemyPrefab = currentZone.enemyPrefabs[Random.Range(0, currentZone.enemyPrefabs.Count)];
+                Vector3 spawnPosition = new Vector3(Random.Range(-spawnAreaWidth / 2, spawnAreaWidth / 2),
+                    lastSpawnHeight + 10f, 0);
+                Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+            }
+        }
+
+        private void SpawnArtifacts() {
+            if (currentZone.artifactPrefabs.Count > 0 && Random.value < 0.3f) // 30% chance to spawn an artifact
+            {
+                Vector3 spawnPosition = new Vector3(Random.Range(-spawnAreaWidth / 2, spawnAreaWidth / 2),
+                    lastSpawnHeight + 10f, 0);
+                
+                GameObject artifactPrefab = Resources.Load<GameObject>("Prefabs/ArtifactPickup");
+                Artifact artifactToSpawn = GetRandomArtifactForCurrentZone();
+                GameObject spawnedArtifact = Instantiate(artifactPrefab, spawnPosition, Quaternion.identity);
+                spawnedArtifact.GetComponent<ArtifactPickup>().artifact = artifactToSpawn;
+            }
+        }
+        
+        private Artifact GetRandomArtifactForCurrentZone()
         {
-            GameObject artifactPrefab = currentZone.artifactPrefabs[Random.Range(0, currentZone.artifactPrefabs.Count)];
-            Vector3 spawnPosition = new Vector3(Random.Range(-spawnAreaWidth/2, spawnAreaWidth/2), lastSpawnHeight + 10f, 0);
-            Instantiate(artifactPrefab, spawnPosition, Quaternion.identity);
+            List<Artifact> possibleArtifacts = new List<Artifact>();
+            foreach (Artifact artifact in ArtifactManager.Instance.allArtifacts)
+            {
+                // if (artifact.zone == currentZone)
+                // {
+                    possibleArtifacts.Add(artifact);
+                // }
+            }
+
+            if (possibleArtifacts.Count > 0)
+            {
+                return possibleArtifacts[Random.Range(0, possibleArtifacts.Count)];
+            }
+
+            return null;
         }
     }
 }
