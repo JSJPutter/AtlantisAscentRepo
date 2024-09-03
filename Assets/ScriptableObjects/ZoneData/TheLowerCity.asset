@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: TheLowerCity
   m_EditorClassIdentifier: 
   zoneName: The Lower City
-  startHeight: 1000
-  endHeight: 2000
+  startHeight: 100
+  endHeight: 200
   ambientLight: {r: 0, g: 0, b: 0, a: 0}
   obstaclePrefabs: []
   enemyPrefabs: []

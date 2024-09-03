@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Core;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -13,7 +14,6 @@ public class PlayerController : MonoBehaviour
     // Blast ability parameters
     public float blastRadius = 3f;
     public float blastCooldown = 2f;
-    public LayerMask blastAffectedLayers;
 
     private Rigidbody2D rb;
     private float screenWidth;
@@ -36,6 +36,11 @@ public class PlayerController : MonoBehaviour
 
     public float horizontalBoundary = 4.5f; // Half of the zone width
 
+    [SerializeField] private LayerMask blastAffectedLayers;
+    [SerializeField] private GameObject blastEffectPrefab;
+    [SerializeField] private float blastEffectDuration = 0.5f;
+    [SerializeField] private float blastAngle = 30f; // Angle of the blast cone
+    
     private void Start()
     {
         screenHeight = Camera.main.orthographicSize * 2;
@@ -63,17 +68,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Update()
+    void Update()
     {
-        // Check for blast ability input
-        if (Input.GetKeyDown(KeyCode.Space) && Time.time - lastBlastTime >= blastCooldown)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            ActivateBlast();
+            Vector2 blastDirection = transform.right * (true ? 1 : -1);
+            // Vector2 blastDirection = transform.right * (isFacingRight ? 1 : -1);
+            ActivateBlast(blastDirection);
         }
-
-        GameManager.Instance.UpdateHeight(transform.position.y);
     }
-
     private void FixedUpdate()
     {
         if (!isMovementStopped)
@@ -189,33 +192,52 @@ public class PlayerController : MonoBehaviour
         // Implement game over logic here
     }
 
-    private void ActivateBlast()
+    private void ActivateBlast(Vector2 direction)
     {
         lastBlastTime = Time.time;
 
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, blastRadius, blastAffectedLayers);
+        // Spawn and orient visual effect
+        GameObject blastEffect = Instantiate(blastEffectPrefab, transform.position, Quaternion.identity);
+        blastEffect.transform.up = direction; // Orient the effect in the blast direction
+        Destroy(blastEffect, blastEffectDuration);
 
-        foreach (Collider2D hitCollider in hitColliders)
+        // Calculate blast area
+        Vector2 blastStart = (Vector2)transform.position;
+        Vector2 blastEnd = blastStart + direction * blastRadius;
+
+        // Use OverlapAreaNonAlloc for a cone-shaped blast
+        Collider2D[] hitColliders = new Collider2D[20]; // Adjust array size as needed
+        int numColliders = Physics2D.OverlapAreaNonAlloc(blastStart, blastEnd, hitColliders, blastAffectedLayers);
+
+        for (int i = 0; i < numColliders; i++)
         {
-            if (hitCollider.CompareTag("Enemy"))
+            Collider2D hitCollider = hitColliders[i];
+        
+            // Check if the collider is within the blast angle
+            Vector2 toCollider = hitCollider.bounds.center - transform.position;
+            float angle = Vector2.Angle(direction, toCollider);
+        
+            if (angle <= blastAngle / 2)
             {
-                Enemy enemy = hitCollider.GetComponent<Enemy>();
-                if (enemy != null)
+                if (hitCollider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
                 {
-                    enemy.Stun();
+                    Enemy enemy = hitCollider.GetComponent<Enemy>();
+                    if (enemy != null)
+                    {
+                        enemy.Stun();
+                    }
                 }
-            }
-            else if (hitCollider.CompareTag("DestructibleObstacle"))
-            {
-                // Destroy the obstacle
-                Destroy(hitCollider.gameObject);
+                else if (hitCollider.gameObject.layer == LayerMask.NameToLayer("DestructibleObstacle"))
+                {
+                    Destroy(hitCollider.gameObject);
+                }
             }
         }
 
-        // Visual feedback for the blast
-        Debug.Log("Blast activated!");
-        // TODO: Add particle effects or other visual feedback for the blast
+        // AudioManager.Instance.PlaySoundEffect("BlastSound");
+        // CameraShake.Instance.ShakeCamera(0.2f, 0.5f);
     }
+
 
     private void OnDrawGizmosSelected()
     {
