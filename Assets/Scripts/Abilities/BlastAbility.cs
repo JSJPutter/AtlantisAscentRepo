@@ -1,45 +1,50 @@
-using System.Collections;
-using System.Collections.Generic;
-
+using Abilities;
 using UnityEngine;
 
 public class BlastAbility : MonoBehaviour
 {
-    public float blastRadius = 3f;
-    public float blastCooldown = 2f;
+    public float blastSpeed = 10f;
+    public float blastRange = 10f;
+    public int blastDamage = 50;
     public LayerMask enemyLayer;
+    public GameObject blastPrefab;
 
-    private float lastBlastTime = -Mathf.Infinity;
+    private PlayerController playerController;
+
+    private void Start()
+    {
+        playerController = GetComponent<PlayerController>();
+    }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && Time.time - lastBlastTime >= blastCooldown)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            ActivateBlast();
+            ShootBlast();
         }
     }
 
-    private void ActivateBlast()
+    private void ShootBlast()
     {
-        lastBlastTime = Time.time;
+        Vector2 shootDirection = playerController.IsFacingRight ? Vector2.right : Vector2.left;
+        Vector3 spawnPosition = transform.position + (Vector3)shootDirection * 0.5f; // Offset to avoid self-collision
 
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(transform.position, blastRadius, enemyLayer);
-
-        foreach (Collider2D enemyCollider in hitEnemies)
+        GameObject blastObject = Instantiate(blastPrefab, spawnPosition, Quaternion.identity);
+        Rigidbody2D blastRb = blastObject.GetComponent<Rigidbody2D>();
+        
+        if (blastRb != null)
         {
-            Enemy enemy = enemyCollider.GetComponent<Enemy>();
-            if (enemy != null)
-            {
-                enemy.Stun();
-            }
+            blastRb.velocity = shootDirection * blastSpeed;
         }
 
-        // TODO: Add visual effects for the blast
-    }
+        Blast blastComponent = blastObject.GetComponent<Blast>();
+        if (blastComponent == null)
+        {
+            blastComponent = blastObject.AddComponent<Blast>();
+        }
+        blastComponent.Initialize(blastDamage, blastRange, enemyLayer);
 
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(transform.position, blastRadius);
+        // TODO: Add sound effect for shooting
+        // AudioManager.Instance.PlaySound("BlastSound");
     }
 }

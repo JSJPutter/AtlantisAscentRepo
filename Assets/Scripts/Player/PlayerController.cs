@@ -11,9 +11,8 @@ public class PlayerController : MonoBehaviour
     
     public int maxHealth = 100;
 
-    // Blast ability parameters
-    public float blastRadius = 3f;
-    public float blastCooldown = 2f;
+    public float rotationSpeed = 180f; // Degrees per second
+    public float maxRotationAngle = 45f; // Maximum rotation angle
 
     private Rigidbody2D rb;
     private float screenWidth;
@@ -24,23 +23,20 @@ public class PlayerController : MonoBehaviour
 
     private int currentHealth;
     private bool isMovementStopped = false;
-    private float lastBlastTime = -Mathf.Infinity;
 
     private float originalMoveSpeed;
     private bool isInvincible = false;
     private bool hasMagnet = false;
     private float magnetRadius = 0f;
-    private int extraBlasts = 0;
 
     private CameraController cameraController;
 
     public float horizontalBoundary = 4.5f; // Half of the zone width
 
     [SerializeField] private LayerMask blastAffectedLayers;
-    [SerializeField] private GameObject blastEffectPrefab;
-    [SerializeField] private float blastEffectDuration = 0.5f;
-    [SerializeField] private float blastAngle = 30f; // Angle of the blast cone
     
+    public bool IsFacingRight { get; private set; } = true;
+
     private void Start()
     {
         screenHeight = Camera.main.orthographicSize * 2;
@@ -52,10 +48,7 @@ public class PlayerController : MonoBehaviour
 
         currentHealth = maxHealth;
         rb = GetComponent<Rigidbody2D>();
-        // Adjust these values for better underwater movement
-        // rb.gravityScale = 0.1f;
-        // rb.drag = 0.5f;
-        // rb.angularDrag = 0.5f;
+        rb.freezeRotation = false; // Allow rotation
 
         minY = transform.position.y;
 
@@ -68,15 +61,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Vector2 blastDirection = transform.right * (true ? 1 : -1);
-            // Vector2 blastDirection = transform.right * (isFacingRight ? 1 : -1);
-            ActivateBlast(blastDirection);
-        }
-    }
     private void FixedUpdate()
     {
         if (!isMovementStopped)
@@ -91,19 +75,7 @@ public class PlayerController : MonoBehaviour
         ApplyDrift();
         ClampVelocity();
         ClampPosition();
-    }
-
-    private void AttractionMagnet()
-    {
-        Collider2D[] attractedObjects = Physics2D.OverlapCircleAll(transform.position, magnetRadius);
-        foreach (Collider2D obj in attractedObjects)
-        {
-            if (obj.CompareTag("OxygenBubble") || obj.CompareTag("PowerUp"))
-            {
-                Vector2 direction = (transform.position - obj.transform.position).normalized;
-                obj.GetComponent<Rigidbody2D>().AddForce(direction * 5f);
-            }
-        }
+        StabilizeRotation();
     }
 
     private void HandleMovement()
@@ -117,6 +89,16 @@ public class PlayerController : MonoBehaviour
         }
         // Apply movement as a force
         rb.AddForce(movement * moveSpeed);
+
+        // Update facing direction
+        if (moveHorizontal > 0 && !IsFacingRight)
+        {
+            Flip();
+        }
+        else if (moveHorizontal < 0 && IsFacingRight)
+        {
+            Flip();
+        }
     }
 
     private void ApplyDrift()
@@ -164,14 +146,29 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("Collision detected with: " + collision.gameObject.name);
-        if (collision.gameObject.CompareTag("StaticObstacle"))
+        if (collision.gameObject.CompareTag("StaticObstacle") || 
+            collision.gameObject.CompareTag("DestructibleObstacle") || 
+            collision.gameObject.CompareTag("Enemy"))
         {
             TakeDamage(1);
+            ApplyRotationFromCollision(collision.contacts[0].normal);
         }
-        else if (collision.gameObject.CompareTag("DestructibleObstacle") || collision.gameObject.CompareTag("Enemy"))
-        {
-            TakeDamage(1);
-        }
+    }
+
+    private void ApplyRotationFromCollision(Vector2 collisionNormal)
+    {
+        // Determine rotation direction based on collision normal and current facing direction
+        float rotationDirection = Vector2.Dot(collisionNormal, IsFacingRight ? Vector2.left : Vector2.right);
+        float rotationAmount = rotationDirection * maxRotationAngle;
+
+        // Apply the rotation
+        transform.rotation = Quaternion.Euler(0, 0, rotationAmount);
+    }
+
+    private void StabilizeRotation()
+    {
+        // Gradually return to upright position
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.identity, rotationSpeed * Time.deltaTime);
     }
 
     public void TakeDamage(int damage)
@@ -192,58 +189,25 @@ public class PlayerController : MonoBehaviour
         // Implement game over logic here
     }
 
-    private void ActivateBlast(Vector2 direction)
+    private void Flip()
     {
-        lastBlastTime = Time.time;
-
-        // Spawn and orient visual effect
-        GameObject blastEffect = Instantiate(blastEffectPrefab, transform.position, Quaternion.identity);
-        blastEffect.transform.up = direction; // Orient the effect in the blast direction
-        Destroy(blastEffect, blastEffectDuration);
-
-        // Calculate blast area
-        Vector2 blastStart = (Vector2)transform.position;
-        Vector2 blastEnd = blastStart + direction * blastRadius;
-
-        // Use OverlapAreaNonAlloc for a cone-shaped blast
-        Collider2D[] hitColliders = new Collider2D[20]; // Adjust array size as needed
-        int numColliders = Physics2D.OverlapAreaNonAlloc(blastStart, blastEnd, hitColliders, blastAffectedLayers);
-
-        for (int i = 0; i < numColliders; i++)
-        {
-            Collider2D hitCollider = hitColliders[i];
-        
-            // Check if the collider is within the blast angle
-            Vector2 toCollider = hitCollider.bounds.center - transform.position;
-            float angle = Vector2.Angle(direction, toCollider);
-        
-            if (angle <= blastAngle / 2)
-            {
-                if (hitCollider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
-                {
-                    Enemy enemy = hitCollider.GetComponent<Enemy>();
-                    if (enemy != null)
-                    {
-                        enemy.Stun();
-                    }
-                }
-                else if (hitCollider.gameObject.layer == LayerMask.NameToLayer("DestructibleObstacle"))
-                {
-                    Destroy(hitCollider.gameObject);
-                }
-            }
-        }
-
-        // AudioManager.Instance.PlaySoundEffect("BlastSound");
-        // CameraShake.Instance.ShakeCamera(0.2f, 0.5f);
+        IsFacingRight = !IsFacingRight;
+        Vector3 scale = transform.localScale;
+        scale.x *= -1;
+        transform.localScale = scale;
     }
 
-
-    private void OnDrawGizmosSelected()
+    private void AttractionMagnet()
     {
-        // Visualize the blast radius in the Scene view
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(transform.position, blastRadius);
+        Collider2D[] attractedObjects = Physics2D.OverlapCircleAll(transform.position, magnetRadius);
+        foreach (Collider2D obj in attractedObjects)
+        {
+            if (obj.CompareTag("OxygenBubble") || obj.CompareTag("PowerUp"))
+            {
+                Vector2 direction = (transform.position - obj.transform.position).normalized;
+                obj.GetComponent<Rigidbody2D>().AddForce(direction * 5f);
+            }
+        }
     }
 
     public void ApplySpeedBoost(float multiplier, float duration)
@@ -262,7 +226,6 @@ public class PlayerController : MonoBehaviour
     {
         moveSpeed = originalMoveSpeed;
     }
-
 
     public void ApplyInvincibility(float duration)
     {
@@ -300,23 +263,6 @@ public class PlayerController : MonoBehaviour
     {
         hasMagnet = false;
         magnetRadius = 0f;
-    }
-
-    public void ApplyMultiBlast(int blasts, float duration)
-    {
-        StartCoroutine(MultiBlastCoroutine(blasts, duration));
-    }
-
-    private IEnumerator MultiBlastCoroutine(int blasts, float duration)
-    {
-        extraBlasts = blasts;
-        yield return new WaitForSeconds(duration);
-        RemoveMultiBlast();
-    }
-
-    public void RemoveMultiBlast()
-    {
-        extraBlasts = 0;
     }
 
     public void UpdateHealthDisplay() 

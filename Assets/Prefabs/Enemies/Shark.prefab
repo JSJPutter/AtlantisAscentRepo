@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6422268619625868471}
   - component: {fileID: 1825796761907925211}
   - component: {fileID: 1996319054784908239}
+  - component: {fileID: 6960614753627585455}
   m_Layer: 8
   m_Name: Shark
   m_TagString: Enemy
@@ -100,3 +101,22 @@ MonoBehaviour:
   detectionRange: 5
   chaseSpeed: 3
   patrolSpeed: 1.5
+--- !u!95 &6960614753627585455
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7206386300680853771}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

@@ -6,11 +6,11 @@ public class MultiBlast : PowerUp
     protected override void Apply()
     {
         powerUpName = "Multi-Blast";
-        player.ApplyMultiBlast(extraBlasts, duration);
+        // player.ApplyMultiBlast(extraBlasts, duration);
     }
 
     public override void Remove()
     {
-        player.RemoveMultiBlast();
+        // player.RemoveMultiBlast();
     }
 }
