@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3236256468159030023}
   - component: {fileID: 3236256468159030021}
   - component: {fileID: 3236256468159030020}
+  - component: {fileID: 4571189838502887366}
   m_Layer: 0
   m_Name: Shark
   m_TagString: Untagged
@@ -141,3 +142,21 @@ CapsuleCollider2D:
   m_Offset: {x: 0.0134544, y: -0.030993896}
   m_Size: {x: 1.7322536, y: 0.6066058}
   m_Direction: 1
+--- !u!114 &4571189838502887366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3236256468159030040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eab6d30ef14ee4a2fbd626b2a32bb6ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+  health: 100
+  damage: 10
+  detectionRange: 5
+  chaseSpeed: 3
+  patrolSpeed: 1.5

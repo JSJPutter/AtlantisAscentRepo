@@ -63,3 +63,4 @@ public class Shark : Enemy
         transform.localScale = scale;
     }
 }
+

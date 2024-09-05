@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6946215505558741424}
   - component: {fileID: 1540510611542408130}
   - component: {fileID: 5521084962453329695}
+  - component: {fileID: 2976962777102299996}
   m_Layer: 0
   m_Name: Jellyfish
   m_TagString: Untagged
@@ -140,3 +141,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &2976962777102299996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8900857404030464355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c16a28f6ad89416981b82c0d063b325, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+  health: 100
+  damage: 10
+  verticalAmplitude: 1
+  verticalFrequency: 1
+  horizontalAmplitude: 0.5
+  horizontalFrequency: 0.5
