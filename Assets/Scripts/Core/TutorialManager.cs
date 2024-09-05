@@ -2,9 +2,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using Core;
 
 public class TutorialManager : MonoBehaviour
 {
+    public static TutorialManager Instance { get; private set; }
+
     [System.Serializable]
     public class TutorialStep
     {
@@ -23,11 +26,67 @@ public class TutorialManager : MonoBehaviour
     private int currentStepIndex = -1;
     private bool isTutorialActive = false;
 
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     private void Start()
     {
         tutorialPanel.SetActive(false);
         nextButton.onClick.AddListener(ShowNextStep);
+        InitializeTutorialSteps();
         StartTutorial();
+    }
+
+    private void InitializeTutorialSteps()
+    {
+        tutorialSteps = new List<TutorialStep>
+        {
+            new TutorialStep
+            {
+                message = "Welcome to Atlantis Ascent: Escape the Depths!",
+                displayTime = 3f,
+                waitForInput = false
+            },
+            new TutorialStep
+            {
+                message = "Use WASD or Arrow Keys to move your character.",
+                displayTime = 4f,
+                waitForInput = false
+            },
+            new TutorialStep
+            {
+                message = "Press SPACE to use your blast ability.",
+                displayTime = 4f,
+                waitForInput = false
+            },
+            new TutorialStep
+            {
+                message = "Collect oxygen bubbles to stay alive longer.",
+                displayTime = 4f,
+                waitForInput = false
+            },
+            new TutorialStep
+            {
+                message = "Avoid obstacles and enemies as you ascend.",
+                displayTime = 4f,
+                waitForInput = false
+            },
+            new TutorialStep
+            {
+                message = "Good luck on your journey to the surface!",
+                displayTime = 3f,
+                waitForInput = true
+            }
+        };
     }
 
     public void StartTutorial()
@@ -35,6 +94,7 @@ public class TutorialManager : MonoBehaviour
         if (tutorialSteps.Count > 0)
         {
             isTutorialActive = true;
+            GameManager.Instance.PauseGame();
             ShowNextStep();
         }
     }
@@ -56,7 +116,15 @@ public class TutorialManager : MonoBehaviour
     {
         tutorialPanel.SetActive(true);
         messageText.text = step.message;
-        tutorialImage.sprite = step.image;
+        if (step.image != null)
+        {
+            tutorialImage.sprite = step.image;
+            tutorialImage.gameObject.SetActive(true);
+        }
+        else
+        {
+            tutorialImage.gameObject.SetActive(false);
+        }
         nextButton.gameObject.SetActive(step.waitForInput);
 
         if (!step.waitForInput)
@@ -67,7 +135,7 @@ public class TutorialManager : MonoBehaviour
 
     private IEnumerator AutoAdvanceTutorial(float delay)
     {
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSecondsRealtime(delay);
         ShowNextStep();
     }
 
@@ -75,10 +143,12 @@ public class TutorialManager : MonoBehaviour
     {
         isTutorialActive = false;
         tutorialPanel.SetActive(false);
+        GameManager.Instance.ResumeGame();
+        GameManager.Instance.TutorialCompleted();
     }
 
-    public void TriggerContextualTutorial(string triggerName)
+    public bool IsTutorialActive()
     {
-        // if (triggerName == "FirstEnemy" && !hasShownEnemyTutorial) { ... }
+        return isTutorialActive;
     }
 }

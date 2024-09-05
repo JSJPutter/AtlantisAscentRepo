@@ -52,27 +52,27 @@ public class UIManager : MonoBehaviour
 
     public void ShowMainMenu()
     {
-        mainMenuPanel.SetActive(true);
-        pauseMenuPanel.SetActive(false);
-        gameOverPanel.SetActive(false);
+        // mainMenuPanel.SetActive(true);
+        // pauseMenuPanel.SetActive(false);
+        // gameOverPanel.SetActive(false);
     }
 
     public void ShowPauseMenu()
     {
-        mainMenuPanel.SetActive(false);
-        pauseMenuPanel.SetActive(true);
-        gameOverPanel.SetActive(false);
+        // mainMenuPanel.SetActive(false);
+        // pauseMenuPanel.SetActive(true);
+        // gameOverPanel.SetActive(false);
     }
 
     public void HidePauseMenu()
     {
-        pauseMenuPanel.SetActive(false);
+        // pauseMenuPanel.SetActive(false);
     }
 
     public void ShowGameOverMenu()
     {
-        mainMenuPanel.SetActive(false);
-        pauseMenuPanel.SetActive(false);
-        gameOverPanel.SetActive(true);
+        // mainMenuPanel.SetActive(false);
+        // pauseMenuPanel.SetActive(false);
+        // gameOverPanel.SetActive(true);
     }
 }

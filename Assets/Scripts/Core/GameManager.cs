@@ -28,11 +28,15 @@ namespace Core {
 
         private Dictionary<string, Action<object>> eventDictionary = new Dictionary<string, Action<object>>();
 
+        private TutorialManager tutorialManager;
+        private bool isTutorialComplete = false;
+        
         private void Awake() {
             if (Instance == null) {
                 Instance = this;
                 DontDestroyOnLoad(gameObject);
                 InitializeManagers();
+                CurrentGameState = GameState.Playing;
             } else {
                 Destroy(gameObject);
             }
@@ -47,17 +51,51 @@ namespace Core {
                 AudioManager = FindObjectOfType<AudioManager>(),
                 ZoneManager = FindObjectOfType<ZoneManager>(),
                 ArtifactManager = FindObjectOfType<ArtifactManager>(),
+                tutorialManager = FindObjectOfType<TutorialManager>(),
             };
 
+            // tutorialManager = TutorialManager.Instance;
+            // if (tutorialManager == null)
+            // {
+            //     Debug.LogError("TutorialManager not found in the scene!");
+            // }
+            // else
+            // {
+            //     StartTutorial();
+            // }
+            //
             if (managers.Any(manager => manager == null)) {
                 Debug.LogError("One or more required managers are missing in the scene.");
             }
         }
 
+        public void StartTutorial()
+        {
+            if (!isTutorialComplete && tutorialManager != null)
+            {
+                tutorialManager.StartTutorial();
+            }
+        }
+        
+        public void TutorialCompleted()
+        {
+            isTutorialComplete = true;
+        }
+        
+        public bool IsGamePaused()
+        {
+            return CurrentGameState == GameState.Paused;
+        }
+        
         public void StartGame()
         {
+            if (tutorialManager.IsTutorialActive())
+            {
+                // Wait for tutorial to complete
+                return;
+            }
+
             CurrentGameState = GameState.Playing;
-            // SpawnPlayer();
             ResetScore();
             InitializeZoneManager();
             
@@ -103,7 +141,7 @@ namespace Core {
             if (CurrentGameState == GameState.Paused) {
                 CurrentGameState = GameState.Playing;
                 Time.timeScale = 1;
-                // UIManager.HidePauseMenu();
+                UIManager.HidePauseMenu();
             }
         }
 
@@ -180,5 +218,7 @@ namespace Core {
         private void OnDisable() {
             RemoveListener("ZoneChanged", OnZoneChanged);
         }
+        
+        
     }
 }
