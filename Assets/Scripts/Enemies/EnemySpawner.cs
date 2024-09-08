@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 public class EnemySpawner: MonoBehaviour
 {
+    public GameObject player;
     public List<GameObject> enemyPrefabs;
     public GameObject bossPrefab;
     public float spawnInterval = 2f;
@@ -36,7 +37,7 @@ public class EnemySpawner: MonoBehaviour
     {
         GameObject enemyPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Count)];
         float randomY = Random.Range(minY, maxY);
-        Vector3 spawnPosition = new Vector3(spawnX, randomY, 0f);
+        Vector3 spawnPosition = new Vector3(spawnX, player.transform.position.y + randomY, 0f);
         Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
     }
 

@@ -19,7 +19,7 @@ public abstract class Obstacle : MonoBehaviour
         {
             rb = gameObject.AddComponent<Rigidbody2D>();
         }
-        rb.gravityScale = 1;  // Allow gravity to affect the object
+        rb.gravityScale = .4f;  // Allow gravity to affect the object
         startX = transform.position.x;
         timeSinceSpawn = 0f;
     }

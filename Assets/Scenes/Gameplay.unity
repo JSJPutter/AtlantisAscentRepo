@@ -349,7 +349,7 @@ RectTransform:
   m_GameObject: {fileID: 93427462}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children:
   - {fileID: 290216538}
   m_Father: {fileID: 481331324}
@@ -1230,7 +1230,7 @@ MonoBehaviour:
   - {fileID: 7621301737727577009, guid: db0a47cf86be94adc983951d707a47bb, type: 3}
   - {fileID: 6353391434552310068, guid: bbc3580957c474500b34725447e8c0c4, type: 3}
   enemyPrefabs: []
-  spawnInterval: 2
+  spawnInterval: 3
   minSize: 0.5
   maxSize: 2
 --- !u!4 &661357234
@@ -1407,7 +1407,7 @@ RectTransform:
   m_GameObject: {fileID: 764230315}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 481331324}
   m_RootOrder: 0
@@ -1640,8 +1640,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -100, y: -100}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -200, y: -100}
+  m_SizeDelta: {x: 300, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &960506672
 CanvasRenderer:
@@ -2106,14 +2106,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88b98c4e0b7fc45db8248c1349da4aa0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 2017514435}
   enemyPrefabs:
   - {fileID: 7206386300680853771, guid: 65fca7b5e72a349d0a42d4078949a06c, type: 3}
   - {fileID: 2686936006775142165, guid: 96da8b4e76d7c4bb184d1030fb9a6f64, type: 3}
   bossPrefab: {fileID: 1630551719036445467, guid: 1beca3884d5964c0a95ab20c39fd0de6,
     type: 3}
   spawnInterval: 2
-  minY: -5
-  maxY: 5
+  minY: 10
+  maxY: 50
   spawnX: 0
   bossSpawnInterval: 500
 --- !u!4 &1637307786
@@ -2290,8 +2291,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -100, y: -170}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -200, y: -170}
+  m_SizeDelta: {x: 300, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1802162350
 GameObject:
@@ -2572,7 +2573,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b62374e80f344d93bedfaae0f4794a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 30
+  moveSpeed: 40
   maxSpeed: 100
   horizontalDrift: 0.5
   driftFrequency: 1
@@ -2661,6 +2662,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62c9c66bbab794fab873a0f4b71b90cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 2017514435}
   scoreText: {fileID: 960506673}
   heightText: {fileID: 1693344516}
   zoneText: {fileID: 0}

@@ -4,6 +4,8 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
+    public GameObject player;
+
     [Header("HUD")]
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI heightText;
@@ -27,6 +29,7 @@ public class UIManager : MonoBehaviour
             Vector2 screenPosition = mainCamera.WorldToScreenPoint(mainCamera.transform.position);
             hudPanel.position = screenPosition + hudOffset;
         }
+        UpdateHeightDisplay(player.transform.position.y);
     }
 
     public void UpdateScoreDisplay(float score)
@@ -36,7 +39,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateHeightDisplay(float height)
     {
-        heightText.text = $"Height: {height:F1}m";
+        heightText.text = $"Depth: {-1000+height:F1}m";
     }
 
     public void UpdateZoneDisplay(string zoneName)
